@@ -1,11 +1,10 @@
 package com.example.monthlybudget.api.controller;
 
+import com.example.monthlybudget.api.model.Currency;
 import com.example.monthlybudget.api.model.Expense;
 import com.example.monthlybudget.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,5 +30,12 @@ public class ExpenseController {
     @GetMapping("/expenses")
     public List<Expense> getExpenses(){
         return expenseService.getExpenses();
+    }
+
+    @PostMapping("/expense")
+    public Expense addExpense(@RequestBody Expense expense){
+        System.out.println(expense);
+        expenseService.addExpense(expense);
+        return expense;
     }
 }

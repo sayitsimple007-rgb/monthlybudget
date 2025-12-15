@@ -1,10 +1,9 @@
 package com.example.monthlybudget.api.controller;
+import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Currency;
 import com.example.monthlybudget.service.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,5 +29,12 @@ public class CurrencyController {
     @GetMapping("/currencies")
     public List<Currency> getCurrencies(){
         return currencyService.getCurrencies();
+    }
+
+    @PostMapping("/currency")
+    public Currency addCurrency(@RequestBody Currency currency){
+        System.out.println(currency);
+        currencyService.addCurrency(currency);
+        return currency;
     }
 }

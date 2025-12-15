@@ -2,6 +2,7 @@ package com.example.monthlybudget.service;
 
 import com.example.monthlybudget.api.model.City;
 import com.example.monthlybudget.api.model.Country;
+import com.example.monthlybudget.api.model.Expense;
 import com.example.monthlybudget.api.model.State;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,11 @@ public class CityService {
 
     public List<City> getCities(){
         return cityList;
+    }
+
+    public City addCity(City city){
+        System.out.println(city);
+        cityList.add(city);
+        return city;
     }
 }

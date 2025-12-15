@@ -1,4 +1,5 @@
 package com.example.monthlybudget.service;
+import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Currency;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,11 @@ public class CurrencyService {
 
     public List<Currency> getCurrencies(){
         return currencyList;
+    }
+
+    public Currency addCurrency(Currency currency){
+        System.out.println(currency);
+        currencyList.add(currency);
+        return currency;
     }
 }

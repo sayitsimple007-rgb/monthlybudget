@@ -1,12 +1,11 @@
 package com.example.monthlybudget.api.controller;
 
+import com.example.monthlybudget.api.model.ExpenseType;
 import com.example.monthlybudget.api.model.Income;
 import com.example.monthlybudget.api.model.State;
 import com.example.monthlybudget.service.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,5 +31,12 @@ public class StateController {
     @GetMapping("/states")
     public List<State> getStates(){
         return stateService.getStates();
+    }
+
+    @PostMapping("/state")
+    public State addState(@RequestBody State state){
+        System.out.println(state);
+        stateService.addState(state);
+        return state;
     }
 }

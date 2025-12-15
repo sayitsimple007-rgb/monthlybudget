@@ -3,9 +3,7 @@ import com.example.monthlybudget.api.model.ExpenseType;
 import com.example.monthlybudget.api.model.Income;
 import com.example.monthlybudget.service.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,5 +29,12 @@ public class IncomeController {
     @GetMapping("/incomes")
     public List<Income> getIncomes(){
         return incomeService.getIncomes();
+    }
+
+    @PostMapping("/income")
+    public Income addIncome(@RequestBody Income income){
+        System.out.println(income);
+        incomeService.addIncome(income);
+        return income;
     }
 }

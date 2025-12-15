@@ -2,12 +2,11 @@ package com.example.monthlybudget.api.controller;
 
 import com.example.monthlybudget.api.model.City;
 import com.example.monthlybudget.api.model.Expense;
+import com.example.monthlybudget.api.model.ExpenseType;
 import com.example.monthlybudget.api.model.State;
 import com.example.monthlybudget.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,5 +33,12 @@ public class CityController {
     @GetMapping("/cities")
     public List<City> getCities(){
         return cityService.getCities();
+    }
+
+    @PostMapping("/city")
+    public City addCity(@RequestBody City city){
+        System.out.println(city);
+        cityService.addCity(city);
+        return city;
     }
 }

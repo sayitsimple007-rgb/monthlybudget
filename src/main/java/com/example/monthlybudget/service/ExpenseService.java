@@ -1,6 +1,7 @@
 package com.example.monthlybudget.service;
 
 import com.example.monthlybudget.api.model.Country;
+import com.example.monthlybudget.api.model.Currency;
 import com.example.monthlybudget.api.model.Expense;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,11 @@ public class ExpenseService {
 
     public List<Expense> getExpenses(){
         return expenseList;
+    }
+
+    public Expense addExpense(Expense expense){
+        System.out.println(expense);
+        expenseList.add(expense);
+        return expense;
     }
 }

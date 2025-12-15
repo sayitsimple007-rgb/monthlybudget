@@ -4,9 +4,7 @@ import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Expense;
 import com.example.monthlybudget.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,5 +30,12 @@ public class CountryController {
     @GetMapping("/countries")
     public List<Country> getCountries(){
         return countryService.getCountries();
+    }
+
+    @PostMapping("/country")
+    public Country addCountry(@RequestBody Country country){
+        System.out.println(country);
+        countryService.addCountry(country);
+        return country;
     }
 }

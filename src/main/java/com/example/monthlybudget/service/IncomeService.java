@@ -1,6 +1,7 @@
 package com.example.monthlybudget.service;
 
 import com.example.monthlybudget.api.model.Country;
+import com.example.monthlybudget.api.model.Expense;
 import com.example.monthlybudget.api.model.ExpenseType;
 import com.example.monthlybudget.api.model.Income;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,11 @@ public class IncomeService {
 
     public List<Income> getIncomes(){
         return incomeList;
+    }
+
+    public Income addIncome(Income income){
+        System.out.println(income);
+        incomeList.add(income);
+        return income;
     }
 }

@@ -3,6 +3,7 @@ package com.example.monthlybudget.service;
 import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Currency;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,5 +34,11 @@ public class CountryService {
 
     public List<Country> getCountries(){
         return countryList;
+    }
+
+    public Country addCountry(Country country){
+        System.out.println(country);
+        countryList.add(country);
+        return country;
     }
 }
