@@ -19,8 +19,8 @@ public class StateController {
     }
 
     @GetMapping("/state")
-    public State getState(@RequestParam Integer id){
-        Optional state = stateService.getState(id);
+    public State getState(@RequestParam Integer id, @RequestParam Integer countryId){
+        Optional state = stateService.getState(id, countryId);
         if(state.isPresent()){
             return (State) state.get();
         }

@@ -14,15 +14,15 @@ public class StateService {
 
     public StateService(){
         stateList = new ArrayList<>();
-        State state1 = new State(1, "North Carolina");
-        State state2 = new State(2, "Maharashtra");
+        State state1 = new State(1, "North Carolina", 2);
+        State state2 = new State(2, "Maharashtra", 1);
         stateList.addAll(Arrays.asList(state1,state2));
     }
 
-    public Optional<State> getState(Integer id){
+    public Optional<State> getState(Integer id, Integer countryId){
         Optional optional = Optional.empty();
         for (State state:stateList){
-            if(id == state.getId()){
+            if(id == state.getId() && countryId == state.getCountryId()){
                 optional = Optional.of(state);
                 return optional;
             }
