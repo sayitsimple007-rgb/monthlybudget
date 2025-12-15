@@ -45,4 +45,15 @@ public class ExpenseService {
         expenseList.add(expense);
         return expense;
     }
+
+    public Expense updateExpense(Expense expense){
+        int index = 0;
+        System.out.println(expense);
+        for (int i=0;i<expenseList.size();i++){
+            if(expenseList.get(i).getId() == expense.getId())
+                index = i;
+        }
+        expenseList.set(index, expense);
+        return expense;
+    }
 }

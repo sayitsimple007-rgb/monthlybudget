@@ -35,4 +35,15 @@ public class CurrencyService {
         currencyList.add(currency);
         return currency;
     }
+
+    public Currency updateCurrency(Currency currency){
+        int index = 0;
+        System.out.println(currency);
+        for (int i=0;i<currencyList.size();i++){
+            if(currencyList.get(i).getId() == currency.getId())
+                index = i;
+        }
+        currencyList.set(index, currency);
+        return currency;
+    }
 }

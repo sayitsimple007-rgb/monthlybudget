@@ -42,4 +42,15 @@ public class CityService {
         cityList.add(city);
         return city;
     }
+
+    public City updateCity(City city){
+        int index = 0;
+        System.out.println(city);
+        for (int i=0;i<cityList.size();i++){
+            if(cityList.get(i).getId() == city.getId())
+                index = i;
+        }
+        cityList.set(index, city);
+        return city;
+    }
 }

@@ -41,4 +41,11 @@ public class CityController {
         cityService.addCity(city);
         return city;
     }
+
+    @PutMapping("/city")
+    public City updateCity(@RequestBody City city){
+        System.out.println(city);
+        cityService.updateCity(city);
+        return city;
+    }
 }

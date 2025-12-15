@@ -41,4 +41,15 @@ public class IncomeService {
         incomeList.add(income);
         return income;
     }
+
+    public Income updateIncome(Income income){
+        int index = 0;
+        System.out.println(income);
+        for (int i=0;i<incomeList.size();i++){
+            if(incomeList.get(i).getId() == income.getId())
+                index = i;
+        }
+        incomeList.set(index, income);
+        return income;
+    }
 }

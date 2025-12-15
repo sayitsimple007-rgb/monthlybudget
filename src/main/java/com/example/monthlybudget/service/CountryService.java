@@ -1,5 +1,6 @@
 package com.example.monthlybudget.service;
 
+import com.example.monthlybudget.api.model.City;
 import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Currency;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,17 @@ public class CountryService {
     public Country addCountry(Country country){
         System.out.println(country);
         countryList.add(country);
+        return country;
+    }
+
+    public Country updateCountry(Country country){
+        int index = 0;
+        System.out.println(country);
+        for (int i=0;i<countryList.size();i++){
+            if(countryList.get(i).getId() == country.getId())
+                index = i;
+        }
+        countryList.set(index, country);
         return country;
     }
 }

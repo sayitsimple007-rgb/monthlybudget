@@ -49,4 +49,15 @@ public class ExpenseTypeService {
         expenseTypeList.add(expenseType);
         return expenseType;
     }
+
+    public ExpenseType updateExpenseType(ExpenseType expenseType){
+        int index = 0;
+        System.out.println(expenseType);
+        for (int i=0;i<expenseTypeList.size();i++){
+            if(expenseTypeList.get(i).getId() == expenseType.getId())
+                index = i;
+        }
+        expenseTypeList.set(index, expenseType);
+        return expenseType;
+    }
 }

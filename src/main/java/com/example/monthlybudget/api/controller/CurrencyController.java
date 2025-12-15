@@ -37,4 +37,11 @@ public class CurrencyController {
         currencyService.addCurrency(currency);
         return currency;
     }
+
+    @PutMapping("/currency")
+    public Currency updateCountry(@RequestBody Currency currency){
+        System.out.println(currency);
+        currencyService.updateCurrency(currency);
+        return currency;
+    }
 }

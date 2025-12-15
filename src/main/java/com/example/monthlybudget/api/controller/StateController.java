@@ -1,5 +1,6 @@
 package com.example.monthlybudget.api.controller;
 
+import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.ExpenseType;
 import com.example.monthlybudget.api.model.Income;
 import com.example.monthlybudget.api.model.State;
@@ -37,6 +38,13 @@ public class StateController {
     public State addState(@RequestBody State state){
         System.out.println(state);
         stateService.addState(state);
+        return state;
+    }
+
+    @PutMapping("/state")
+    public State updateState(@RequestBody State state){
+        System.out.println(state);
+        stateService.updateState(state);
         return state;
     }
 }

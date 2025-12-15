@@ -1,5 +1,6 @@
 package com.example.monthlybudget.api.controller;
 
+import com.example.monthlybudget.api.model.City;
 import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Expense;
 import com.example.monthlybudget.service.CountryService;
@@ -36,6 +37,13 @@ public class CountryController {
     public Country addCountry(@RequestBody Country country){
         System.out.println(country);
         countryService.addCountry(country);
+        return country;
+    }
+
+    @PutMapping("/country")
+    public Country updateCountry(@RequestBody Country country){
+        System.out.println(country);
+        countryService.updateCountry(country);
         return country;
     }
 }

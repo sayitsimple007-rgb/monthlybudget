@@ -43,4 +43,15 @@ public class StateService {
         stateList.add(state);
         return state;
     }
+
+    public State updateState(State state){
+        int index = 0;
+        System.out.println(state);
+        for (int i=0;i<stateList.size();i++){
+            if(stateList.get(i).getId() == state.getId())
+                index = i;
+        }
+        stateList.set(index, state);
+        return state;
+    }
 }

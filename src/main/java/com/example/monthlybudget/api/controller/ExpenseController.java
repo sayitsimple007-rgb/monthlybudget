@@ -1,5 +1,6 @@
 package com.example.monthlybudget.api.controller;
 
+import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Currency;
 import com.example.monthlybudget.api.model.Expense;
 import com.example.monthlybudget.service.ExpenseService;
@@ -36,6 +37,13 @@ public class ExpenseController {
     public Expense addExpense(@RequestBody Expense expense){
         System.out.println(expense);
         expenseService.addExpense(expense);
+        return expense;
+    }
+
+    @PutMapping("/expense")
+    public Expense updateExpense(@RequestBody Expense expense){
+        System.out.println(expense);
+        expenseService.updateExpense(expense);
         return expense;
     }
 }
