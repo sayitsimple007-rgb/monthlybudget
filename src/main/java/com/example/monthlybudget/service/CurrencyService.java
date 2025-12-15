@@ -24,4 +24,8 @@ public class CurrencyService {
         }
         return optional;
     }
+
+    public List<Currency> getCurrencies(){
+        return currencyList;
+    }
 }

@@ -38,4 +38,8 @@ public class ExpenseTypeService {
         }
         return optional;
     }
+
+    public List<ExpenseType> getExpenseTypes(){
+        return expenseTypeList;
+    }
 }

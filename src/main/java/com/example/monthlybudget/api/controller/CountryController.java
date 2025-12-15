@@ -1,12 +1,14 @@
 package com.example.monthlybudget.api.controller;
 
 import com.example.monthlybudget.api.model.Country;
+import com.example.monthlybudget.api.model.Expense;
 import com.example.monthlybudget.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,5 +27,10 @@ public class CountryController {
             return (Country) country.get();
         }
         return null;
+    }
+
+    @GetMapping("/countries")
+    public List<Country> getCountries(){
+        return countryService.getCountries();
     }
 }

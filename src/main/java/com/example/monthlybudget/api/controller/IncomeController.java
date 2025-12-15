@@ -1,4 +1,5 @@
 package com.example.monthlybudget.api.controller;
+import com.example.monthlybudget.api.model.ExpenseType;
 import com.example.monthlybudget.api.model.Income;
 import com.example.monthlybudget.service.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,5 +26,10 @@ public class IncomeController {
             return (Income) income.get();
         }
         return null;
+    }
+
+    @GetMapping("/incomes")
+    public List<Income> getIncomes(){
+        return incomeService.getIncomes();
     }
 }

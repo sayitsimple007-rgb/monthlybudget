@@ -1,5 +1,6 @@
 package com.example.monthlybudget.service;
 
+import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.State;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,9 @@ public class StateService {
             }
         }
         return optional;
+    }
+
+    public List<State> getStates(){
+        return stateList;
     }
 }

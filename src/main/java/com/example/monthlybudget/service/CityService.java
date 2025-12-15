@@ -1,6 +1,7 @@
 package com.example.monthlybudget.service;
 
 import com.example.monthlybudget.api.model.City;
+import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.State;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,8 @@ public class CityService {
 
     public CityService(){
         cityList = new ArrayList<>();
-        City city1 = new City(1, "North Carolina", 1, 1);
-        City city2 = new City(2, "Maharashtra", 2, 2);
+        City city1 = new City(1, "Cary", 1, 1);
+        City city2 = new City(2, "Pune", 2, 2);
         cityList.addAll(Arrays.asList(city1,city2));
     }
 
@@ -29,5 +30,9 @@ public class CityService {
             }
         }
         return optional;
+    }
+
+    public List<City> getCities(){
+        return cityList;
     }
 }

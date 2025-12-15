@@ -1,6 +1,7 @@
 package com.example.monthlybudget.service;
 
 import com.example.monthlybudget.api.model.Country;
+import com.example.monthlybudget.api.model.Currency;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,5 +29,9 @@ public class CountryService {
             }
         }
         return optional;
+    }
+
+    public List<Country> getCountries(){
+        return countryList;
     }
 }

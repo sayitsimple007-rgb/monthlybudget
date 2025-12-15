@@ -34,4 +34,8 @@ public class ExpenseService {
         }
         return optional;
     }
+
+    public List<Expense> getExpenses(){
+        return expenseList;
+    }
 }

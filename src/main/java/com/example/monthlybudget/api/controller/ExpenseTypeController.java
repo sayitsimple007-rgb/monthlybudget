@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,5 +25,10 @@ public class ExpenseTypeController {
             return (ExpenseType) expenseType.get();
         }
         return null;
+    }
+
+    @GetMapping("/expenseTypes")
+    public List<ExpenseType> getExpenseTypes(){
+        return expenseTypeService.getExpenseTypes();
     }
 }
