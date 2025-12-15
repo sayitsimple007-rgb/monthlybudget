@@ -28,7 +28,7 @@ public class ExpenseTypeService {
         expenseTypeList.addAll(Arrays.asList(expenseType1,expenseType2, expenseType3, expenseType4,
                 expenseType5, expenseType6, expenseType7, expenseType8, expenseType9, expenseType10));
     }
-    public Optional<Country> getExpenseType(Integer id){
+    public Optional<ExpenseType> getExpenseType(Integer id){
         Optional optional = Optional.empty();
         for (ExpenseType expenseType: expenseTypeList){
             if(id == expenseType.getId()){
