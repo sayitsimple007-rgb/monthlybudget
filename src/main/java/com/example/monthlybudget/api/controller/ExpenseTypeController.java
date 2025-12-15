@@ -46,4 +46,11 @@ public class ExpenseTypeController {
         expenseTypeService.updateExpenseType(expenseType);
         return expenseType;
     }
+
+    @DeleteMapping("/expenseTypes/{id}")
+    public int deleteExpenseType(@PathVariable int id){
+        System.out.println(id);
+        expenseTypeService.deleteExpenseType(id);
+        return id;
+    }
 }

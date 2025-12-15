@@ -46,4 +46,11 @@ public class CountryController {
         countryService.updateCountry(country);
         return country;
     }
+
+    @DeleteMapping("/countries/{id}")
+    public int deleteCountry(@PathVariable int id){
+        System.out.println(id);
+        countryService.deleteCountry(id);
+        return id;
+    }
 }

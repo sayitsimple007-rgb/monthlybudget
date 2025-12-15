@@ -56,4 +56,15 @@ public class ExpenseService {
         expenseList.set(index, expense);
         return expense;
     }
+
+    public int deleteExpense(int id){
+        int index = 0;
+        System.out.println(id);
+        for (int i=0;i<expenseList.size();i++){
+            if(expenseList.get(i).getId() == id)
+                index = i;
+        }
+        expenseList.remove(index);
+        return index;
+    }
 }

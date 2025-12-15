@@ -54,4 +54,15 @@ public class StateService {
         stateList.set(index, state);
         return state;
     }
+
+    public int deleteState(int id){
+        int index = 0;
+        System.out.println(id);
+        for (int i=0;i<stateList.size();i++){
+            if(stateList.get(i).getId() == id)
+                index = i;
+        }
+        stateList.remove(index);
+        return index;
+    }
 }

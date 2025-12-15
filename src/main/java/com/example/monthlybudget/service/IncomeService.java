@@ -52,4 +52,15 @@ public class IncomeService {
         incomeList.set(index, income);
         return income;
     }
+
+    public int deleteIncome(int id){
+        int index = 0;
+        System.out.println(id);
+        for (int i=0;i<incomeList.size();i++){
+            if(incomeList.get(i).getId() == id)
+                index = i;
+        }
+        incomeList.remove(index);
+        return index;
+    }
 }

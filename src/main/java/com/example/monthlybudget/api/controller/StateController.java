@@ -47,4 +47,11 @@ public class StateController {
         stateService.updateState(state);
         return state;
     }
+
+    @DeleteMapping("/states/{id}")
+    public int deleteState(@PathVariable int id){
+        System.out.println(id);
+        stateService.deleteState(id);
+        return id;
+    }
 }

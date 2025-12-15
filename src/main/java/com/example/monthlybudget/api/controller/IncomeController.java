@@ -45,4 +45,11 @@ public class IncomeController {
         incomeService.updateIncome(income);
         return income;
     }
+
+    @DeleteMapping("/incomes/{id}")
+    public int deleteIncome(@PathVariable int id){
+        System.out.println(id);
+        incomeService.deleteIncome(id);
+        return id;
+    }
 }

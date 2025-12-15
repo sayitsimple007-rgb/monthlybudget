@@ -53,4 +53,15 @@ public class CountryService {
         countryList.set(index, country);
         return country;
     }
+
+    public int deleteCountry(int id){
+        int index = 0;
+        System.out.println(id);
+        for (int i=0;i<countryList.size();i++){
+            if(countryList.get(i).getId() == id)
+                index = i;
+        }
+        countryList.remove(index);
+        return index;
+    }
 }

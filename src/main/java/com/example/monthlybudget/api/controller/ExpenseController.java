@@ -46,4 +46,11 @@ public class ExpenseController {
         expenseService.updateExpense(expense);
         return expense;
     }
+
+    @DeleteMapping("/expenses/{id}")
+    public int deleteExpense(@PathVariable int id){
+        System.out.println(id);
+        expenseService.deleteExpense(id);
+        return id;
+    }
 }

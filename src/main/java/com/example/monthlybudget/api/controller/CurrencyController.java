@@ -44,4 +44,11 @@ public class CurrencyController {
         currencyService.updateCurrency(currency);
         return currency;
     }
+
+    @DeleteMapping("/currencies/{id}")
+    public int deleteCurrency(@PathVariable int id){
+        System.out.println(id);
+        currencyService.deleteCurrency(id);
+        return id;
+    }
 }

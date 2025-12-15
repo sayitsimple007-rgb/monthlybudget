@@ -48,4 +48,11 @@ public class CityController {
         cityService.updateCity(city);
         return city;
     }
+
+    @DeleteMapping("/cities/{id}")
+    public int deleteCity(@PathVariable int id){
+        System.out.println(id);
+        cityService.deleteCity(id);
+        return id;
+    }
 }

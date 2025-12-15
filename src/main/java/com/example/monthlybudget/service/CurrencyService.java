@@ -46,4 +46,15 @@ public class CurrencyService {
         currencyList.set(index, currency);
         return currency;
     }
+
+    public int deleteCurrency(int id){
+        int index = 0;
+        System.out.println(id);
+        for (int i=0;i<currencyList.size();i++){
+            if(currencyList.get(i).getId() == id)
+                index = i;
+        }
+        currencyList.remove(index);
+        return index;
+    }
 }
