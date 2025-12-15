@@ -57,7 +57,7 @@ public class CityService {
     public int deleteCity(int id){
         System.out.println(id);
         int index = 0;
-        for (int i=0;i<cityList.size();i++){
+        for (int i=0; i < cityList.size(); i++){
             if(cityList.get(i).getId() == id)
                 index = i;
         }
