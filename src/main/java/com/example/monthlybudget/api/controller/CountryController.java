@@ -1,0 +1,29 @@
+package com.example.monthlybudget.api.controller;
+
+import com.example.monthlybudget.api.model.Country;
+import com.example.monthlybudget.service.CountryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
+
+@RestController
+public class CountryController {
+    private CountryService countryService;
+
+    @Autowired
+    public CountryController(CountryService countryService){
+        this.countryService = countryService;
+    }
+
+    @GetMapping("/country")
+    public Country getCountry(@RequestParam Integer id){
+        Optional country = countryService.getCountry(id);
+        if(country.isPresent()){
+            return (Country) country.get();
+        }
+        return null;
+    }
+}
