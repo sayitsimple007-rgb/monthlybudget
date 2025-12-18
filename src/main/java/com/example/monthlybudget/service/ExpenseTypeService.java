@@ -38,8 +38,8 @@ public class ExpenseTypeService {
     }
 
     @Transactional
-    public void updateExpenseType(ExpenseType expenseType) {
-        ExpenseType existingExpeneType = expenseTypeRepository.findById(expenseType.getId())
+    public void updateExpenseType(Long id, ExpenseType expenseType) {
+        ExpenseType existingExpeneType = expenseTypeRepository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("Expense not found with id: " + expenseType.getId())
                 );

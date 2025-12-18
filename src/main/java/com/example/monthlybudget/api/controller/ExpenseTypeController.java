@@ -15,7 +15,7 @@ public class ExpenseTypeController {
         this.expenseTypeService = expenseTypeService;
     }
 
-    @GetMapping("/expenseType")
+    @GetMapping("/expenseTypes/{id}")
     public ExpenseType getExpenseType(@RequestParam Long id){
         Optional expenseType = expenseTypeService.getExpenseType(id);
         if(expenseType.isPresent()){
@@ -29,16 +29,16 @@ public class ExpenseTypeController {
         return expenseTypeService.getExpenseTypes();
     }
 
-    @PostMapping("/expenseType")
+    @PostMapping("/expenseTypes")
     public void addExpenseType(@RequestBody ExpenseType expenseType){
         System.out.println(expenseType);
         expenseTypeService.addExpenseType(expenseType);
     }
 
-    @PutMapping("/expenseType")
-    public void updateExpenseType(@RequestBody ExpenseType expenseType){
+    @PutMapping("/expenseTypes/{id}")
+    public void updateExpenseType(@PathVariable Long id, @RequestBody ExpenseType expenseType){
         System.out.println(expenseType);
-        expenseTypeService.updateExpenseType(expenseType);
+        expenseTypeService.updateExpenseType(id, expenseType);
     }
 
     @DeleteMapping("/expenseTypes/{id}")
