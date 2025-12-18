@@ -50,10 +50,10 @@ public class CurrencyService {
     }
 
     @Transactional
-    public void updateCurrency(Currency currency) {
-        Currency existingCurrency = currencyRepository.findById(currency.getId())
+    public void updateCurrency(Long id, Currency currency) {
+        Currency existingCurrency = currencyRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Currency not found with id: " + currency.getId())
+                        new RuntimeException("Currency not found with id: " + id)
                 );
         existingCurrency.setName(currency.getName());
         currencyRepository.save(existingCurrency);

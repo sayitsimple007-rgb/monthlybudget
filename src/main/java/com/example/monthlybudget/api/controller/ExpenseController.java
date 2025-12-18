@@ -17,8 +17,8 @@ public class ExpenseController {
         this.expenseService = expenseService;
     }
 
-    @GetMapping("/expense")
-    public Expense getExpense(@RequestParam Long id) {
+    @GetMapping("/expenses/{id}")
+    public Expense getExpense(@PathVariable Long id) {
         Optional expense = expenseService.getExpense(id);
         if (expense.isPresent()) {
             return (Expense) expense.get();
@@ -31,16 +31,16 @@ public class ExpenseController {
         return expenseService.getExpenses();
     }
 
-    @PostMapping("/expense")
+    @PostMapping("/expenses")
     public void addExpense(@RequestBody Expense expense) {
         System.out.println(expense);
         expenseService.addExpense(expense);
     }
 
-    @PutMapping("/expense")
-    public void updateExpense(@RequestBody Expense expense) {
+    @PutMapping("/expenses/{id}")
+    public void updateExpense(@PathVariable Long id, @RequestBody Expense expense) {
         System.out.println(expense);
-        expenseService.updateExpense(expense);
+        expenseService.updateExpense(id, expense);
     }
 
     @DeleteMapping("/expenses/{id}")

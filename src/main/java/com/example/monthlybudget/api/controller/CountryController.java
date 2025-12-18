@@ -16,7 +16,7 @@ public class CountryController {
     }
 
     @GetMapping("/countries/{id}")
-    public Country getCountry(@RequestParam Long id){
+    public Country getCountry(@PathVariable Long id){
         Optional country = countryService.getCountry(id);
         if(country.isPresent()){
             return (Country) country.get();

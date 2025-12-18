@@ -15,8 +15,8 @@ public class StateController {
         this.stateService = stateService;
     }
 
-    @GetMapping("/state")
-    public State getState(@RequestParam Long id, @RequestParam Long countryId){
+    @GetMapping("/states/{id}")
+    public State getState(@PathVariable Long id, @RequestParam Long countryId){
         Optional state = stateService.getState(id, countryId);
         if(state.isPresent()){
             return (State) state.get();
@@ -29,16 +29,16 @@ public class StateController {
         return stateService.getStates();
     }
 
-    @PostMapping("/state")
+    @PostMapping("/states")
     public void addState(@RequestBody State state){
         System.out.println(state);
         stateService.addState(state);
     }
 
-    @PutMapping("/state")
-    public void updateState(@RequestBody State state){
+    @PutMapping("/states")
+    public void updateState(@PathVariable Long id, @RequestBody State state){
         System.out.println(state);
-        stateService.updateState(state);
+        stateService.updateState(id, state);
     }
 
     @DeleteMapping("/states/{id}")

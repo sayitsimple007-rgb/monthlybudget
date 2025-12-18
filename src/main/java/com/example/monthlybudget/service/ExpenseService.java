@@ -67,10 +67,10 @@ public class ExpenseService {
     }
 
     @Transactional
-    public void updateExpense(Expense expense) {
-        Expense existingExpene = expenseRepository.findById(expense.getId())
+    public void updateExpense(Long id, Expense expense) {
+        Expense existingExpene = expenseRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Expense not found with id: " + expense.getId())
+                        new RuntimeException("Expense not found with id: " + id)
                 );
 
         existingExpene.setName(expense.getName());

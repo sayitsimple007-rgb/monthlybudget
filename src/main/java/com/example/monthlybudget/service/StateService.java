@@ -38,11 +38,11 @@ public class StateService {
     }
 
     @Transactional
-    public void updateState(State state) {
+    public void updateState(Long id, State state) {
 
-        State existingState = stateRepository.findById(state.getId())
+        State existingState = stateRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("State not found with id: " + state.getId())
+                        new RuntimeException("State not found with id: " + id)
                 );
 
         existingState.setName(state.getName());

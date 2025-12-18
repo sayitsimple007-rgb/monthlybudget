@@ -16,7 +16,7 @@ public class CityController {
     }
 
     @GetMapping("/cities/{id}")
-    public City getCity(@RequestParam Long id, @RequestParam Long countryId
+    public City getCity(@PathVariable Long id, @RequestParam Long countryId
             , @RequestParam Long stateId) {
         Optional city = cityService.getCity(id, countryId, stateId);
         if (city.isPresent()) {

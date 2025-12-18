@@ -17,8 +17,8 @@ public class CurrencyController {
         this.currencyService = currencyService;
     }
 
-    @GetMapping("/currency")
-    public Currency getCurrency(@RequestParam Long id) {
+    @GetMapping("/currencies/{id}")
+    public Currency getCurrency(@PathVariable Long id) {
         Optional currency = currencyService.getCurrency(id);
         if (currency.isPresent()) {
             return (Currency) currency.get();
@@ -31,16 +31,16 @@ public class CurrencyController {
         return currencyService.getCurrencies();
     }
 
-    @PostMapping("/currency")
+    @PostMapping("/currencies")
     public void addCurrency(@RequestBody Currency currency) {
         System.out.println(currency);
         currencyService.addCurrency(currency);
     }
 
-    @PutMapping("/currency")
-    public void updateCurrency(@RequestBody Currency currency) {
+    @PutMapping("/currencies/{id}")
+    public void updateCurrency(@PathVariable Long id, @RequestBody Currency currency) {
         System.out.println(currency);
-        currencyService.updateCurrency(currency);
+        currencyService.updateCurrency(id, currency);
     }
 
     @DeleteMapping("/currencies/{id}")
