@@ -41,11 +41,11 @@ public class CityService {
     }
 
     @Transactional
-    public void updateCity(City city) {
+    public void updateCity(Long id, City city) {
 
-        City existingCity = cityRepository.findById(city.getId())
+        City existingCity = cityRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("State not found with id: " + city.getId())
+                        new RuntimeException("State not found with id: " + id)
                 );
 
         existingCity.setName(city.getName());

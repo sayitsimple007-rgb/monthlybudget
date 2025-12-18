@@ -15,7 +15,7 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/city")
+    @GetMapping("/cities/{id}")
     public City getCity(@RequestParam Long id, @RequestParam Long countryId
             , @RequestParam Long stateId) {
         Optional city = cityService.getCity(id, countryId, stateId);
@@ -30,16 +30,16 @@ public class CityController {
         return cityService.getCities();
     }
 
-    @PostMapping("/city")
+    @PostMapping("/cities")
     public void addCity(@RequestBody City city){
         System.out.println(city);
         cityService.addCity(city);
     }
 
-    @PutMapping("/city")
-    public void updateCity(@RequestBody City city){
+    @PutMapping("/cities/{id}")
+    public void updateCity(@PathVariable Long id, @RequestBody City city){
         System.out.println(city);
-        cityService.updateCity(city);
+        cityService.updateCity(id, city);
     }
 
     @DeleteMapping("/cities/{id}")

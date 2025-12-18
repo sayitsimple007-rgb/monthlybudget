@@ -15,7 +15,7 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @GetMapping("/country")
+    @GetMapping("/countries/{id}")
     public Country getCountry(@RequestParam Long id){
         Optional country = countryService.getCountry(id);
         if(country.isPresent()){
@@ -29,16 +29,16 @@ public class CountryController {
         return countryService.getCountries();
     }
 
-    @PostMapping("/country")
+    @PostMapping("/countries")
     public void addCountry(@RequestBody Country country){
         System.out.println(country);
         countryService.addCountry(country);
     }
 
-    @PutMapping("/country")
-    public void updateCountry(@RequestBody Country country){
+    @PutMapping("/countries/{id}")
+    public void updateCountry(@PathVariable Long id, @RequestBody Country country){
         System.out.println(country);
-        countryService.updateCountry(country);
+        countryService.updateCountry(id, country);
     }
 
     @DeleteMapping("/countries/{id}")

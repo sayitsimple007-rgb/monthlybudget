@@ -43,10 +43,10 @@ public class CountryService {
     }
 
     @Transactional
-    public void updateCountry(Country country) {
-        Country existingCountry = countryRepository.findById(country.getId())
+    public void updateCountry(Long id, Country country) {
+        Country existingCountry = countryRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("State not found with id: " + country.getId())
+                        new RuntimeException("State not found with id: " + id)
                 );
         existingCountry.setName(country.getName());
         countryRepository.save(existingCountry);
