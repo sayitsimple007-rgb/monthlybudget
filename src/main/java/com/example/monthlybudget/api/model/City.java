@@ -1,6 +1,11 @@
 package com.example.monthlybudget.api.model;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "city")
 public class City {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private int countryId;
@@ -11,6 +16,10 @@ public class City {
         this.name = name;
         this.countryId = countryId;
         this.stateId = stateId;
+    }
+
+    public City() {
+
     }
 
     public int getId(){

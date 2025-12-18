@@ -4,6 +4,7 @@ import com.example.monthlybudget.api.model.City;
 import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Expense;
 import com.example.monthlybudget.api.model.State;
+import com.example.monthlybudget.repository.CityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,8 +15,10 @@ import java.util.Optional;
 @Service
 public class CityService {
     private List<City> cityList;
+    private final CityRepository cityRepository;
 
-    public CityService(){
+    public CityService(CityRepository cityRepository){
+        this.cityRepository = cityRepository;
         cityList = new ArrayList<>();
         City city1 = new City(1, "Cary", 1, 1);
         City city2 = new City(2, "Pune", 2, 2);
@@ -34,7 +37,7 @@ public class CityService {
     }
 
     public List<City> getCities(){
-        return cityList;
+        return cityRepository.findAll();
     }
 
     public City addCity(City city){

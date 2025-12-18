@@ -1,9 +1,6 @@
 package com.example.monthlybudget.api.controller;
 
 import com.example.monthlybudget.api.model.City;
-import com.example.monthlybudget.api.model.Expense;
-import com.example.monthlybudget.api.model.ExpenseType;
-import com.example.monthlybudget.api.model.State;
 import com.example.monthlybudget.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
