@@ -1,10 +1,8 @@
 package com.example.monthlybudget.api.controller;
-
 import com.example.monthlybudget.api.model.City;
 import com.example.monthlybudget.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 

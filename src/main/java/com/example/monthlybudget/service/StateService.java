@@ -1,13 +1,7 @@
 package com.example.monthlybudget.service;
-
-import com.example.monthlybudget.api.model.Country;
-import com.example.monthlybudget.api.model.Income;
 import com.example.monthlybudget.api.model.State;
 import com.example.monthlybudget.repository.StateRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
