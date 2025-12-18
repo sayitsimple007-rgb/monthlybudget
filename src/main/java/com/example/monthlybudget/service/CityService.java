@@ -38,8 +38,7 @@ public class CityService {
 
     public City addCity(City city){
         System.out.println(city);
-        cityList.add(city);
-        return city;
+        return cityRepository.save(city);
     }
 
     public City updateCity(City city){

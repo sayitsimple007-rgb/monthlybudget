@@ -32,14 +32,12 @@ public class StateService {
     }
 
     public List<State> getStates(){
-
         return stateRepository.findAll();
     }
 
     public State addState(State state){
         System.out.println(state);
-        stateList.add(state);
-        return state;
+        return stateRepository.save(state);
     }
 
     public State updateState(State state){

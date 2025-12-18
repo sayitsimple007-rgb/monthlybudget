@@ -38,8 +38,7 @@ public class CountryService {
 
     public Country addCountry(Country country){
         System.out.println(country);
-        countryList.add(country);
-        return country;
+        return countryRepository.save(country);
     }
 
     public Country updateCountry(Country country){
