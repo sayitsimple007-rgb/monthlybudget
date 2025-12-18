@@ -1,25 +1,23 @@
 package com.example.monthlybudget.service;
 import com.example.monthlybudget.api.model.Income;
+import com.example.monthlybudget.repository.IncomeRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 @Service
 public class IncomeService {
-    private List<Income> incomeList;
-
-    public IncomeService(){
-        incomeList = new ArrayList<>();
-        Income income1 = new Income( 1, "Fidelity - Bank of America", 1000);
-        Income income2 = new Income( 2, "Fidelity - DCU", 1000);
-        incomeList.addAll(Arrays.asList(income1,income2));
+    private final IncomeRepository incomeRepository;
+    @Autowired
+    public IncomeService(IncomeRepository incomeRepository){
+        this.incomeRepository = incomeRepository;
     }
-    public Optional<Income> getIncome(Integer id){
+    public Optional getIncome(Long id){
         Optional optional = Optional.empty();
-        for (Income income: incomeList){
-            if(id == income.getId()){
+        for (Income income: incomeRepository.findAll()){
+            if(Objects.equals(id, income.getId())){
                 optional = Optional.of(income);
                 return optional;
             }
@@ -28,34 +26,34 @@ public class IncomeService {
     }
 
     public List<Income> getIncomes(){
-        return incomeList;
+        return incomeRepository.findAll();
     }
 
-    public Income addIncome(Income income){
+    @Transactional
+    public void addIncome(Income income){
         System.out.println(income);
-        incomeList.add(income);
-        return income;
+        incomeRepository.save(income);
     }
 
-    public Income updateIncome(Income income){
-        int index = 0;
-        System.out.println(income);
-        for (int i=0;i<incomeList.size();i++){
-            if(incomeList.get(i).getId() == income.getId())
-                index = i;
-        }
-        incomeList.set(index, income);
-        return income;
+    @Transactional
+    public void updateIncome(Income income) {
+        Income existingIncome = incomeRepository.findById(income.getId())
+                .orElseThrow(() ->
+                        new RuntimeException("Expense not found with id: " + income.getId())
+                );
+
+        existingIncome.setName(income.getName());
+        incomeRepository.save(existingIncome);
     }
 
-    public int deleteIncome(int id){
-        int index = 0;
-        System.out.println(id);
-        for (int i=0;i<incomeList.size();i++){
-            if(incomeList.get(i).getId() == id)
-                index = i;
-        }
-        incomeList.remove(index);
-        return index;
+    @Transactional
+    public void deleteIncome(Long id) {
+        incomeRepository.findById(id)
+                .ifPresentOrElse(
+                        incomeRepository::delete,
+                        () -> {
+                            throw new RuntimeException("Income not found with id: " + id);
+                        }
+                );
     }
 }

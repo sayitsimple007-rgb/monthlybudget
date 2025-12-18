@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @RestController
 public class CityController {
-    private CityService cityService;
+    private final CityService cityService;
 
     @Autowired
     public CityController(CityService cityService){
@@ -31,23 +31,20 @@ public class CityController {
     }
 
     @PostMapping("/city")
-    public City addCity(@RequestBody City city){
+    public void addCity(@RequestBody City city){
         System.out.println(city);
         cityService.addCity(city);
-        return city;
     }
 
     @PutMapping("/city")
-    public City updateCity(@RequestBody City city){
+    public void updateCity(@RequestBody City city){
         System.out.println(city);
         cityService.updateCity(city);
-        return city;
     }
 
     @DeleteMapping("/cities/{id}")
-    public int deleteCity(@PathVariable int id){
+    public void deleteCity(@PathVariable Long id){
         System.out.println(id);
         cityService.deleteCity(id);
-        return id;
     }
 }

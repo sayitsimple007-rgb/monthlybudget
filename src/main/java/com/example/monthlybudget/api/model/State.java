@@ -7,20 +7,17 @@ import jakarta.persistence.*;
 public class State {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
-    private int countryId;
+    private Long countryId;
+    @Version
+    private Long version;
 
     public State(){
 
     }
-    public State(int id, String name, int countryId){
-        this.id = id;
-        this.name = name;
-        this.countryId = countryId;
-    }
 
-    public int getId(){
+    public Long getId(){
         return id;
     }
 
@@ -28,7 +25,7 @@ public class State {
         return name;
     }
 
-    public void setId(int id){
+    public void setId(Long id){
         this.id = id;
     }
 
@@ -36,11 +33,19 @@ public class State {
         this.name = name;
     }
 
-    public int getCountryId(){
+    public Long getCountryId(){
         return countryId;
     }
 
-    public void setCountryId(int countryId){
+    public void setCountryId(Long countryId){
         this.countryId = countryId;
+    }
+
+    public Long getVersion(){
+        return version;
+    }
+
+    public void setVersion(Long version){
+        this.version = version;
     }
 }

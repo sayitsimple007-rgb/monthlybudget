@@ -1,8 +1,14 @@
 package com.example.monthlybudget.service;
+
 import com.example.monthlybudget.api.model.Country;
+import com.example.monthlybudget.api.model.State;
 import com.example.monthlybudget.repository.CountryRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -10,14 +16,15 @@ public class CountryService {
 
     private List<Country> countryList;
     private final CountryRepository countryRepository;
-
-    public CountryService(CountryRepository countryRepository){
+    @Autowired
+    public CountryService(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
     }
-    public Optional<Country> getCountry(Integer id){
-        Optional optional = Optional.empty();
-        for (Country country: countryRepository.findAll()){
-            if(id == country.getId()){
+
+    public Optional getCountry(Long id) {
+        Optional<Object> optional = Optional.empty();
+        for (Country country : countryRepository.findAll()) {
+            if (Objects.equals(id, country.getId())) {
                 optional = Optional.of(country);
                 return optional;
             }
@@ -25,34 +32,34 @@ public class CountryService {
         return optional;
     }
 
-    public List<Country> getCountries(){
+    public List<Country> getCountries() {
         return countryRepository.findAll();
     }
 
-    public Country addCountry(Country country){
+    @Transactional
+    public void addCountry(Country country) {
         System.out.println(country);
-        return countryRepository.save(country);
+        countryRepository.save(country);
     }
 
-    public Country updateCountry(Country country){
-        int index = 0;
-        System.out.println(country);
-        for (int i=0;i<countryList.size();i++){
-            if(countryList.get(i).getId() == country.getId())
-                index = i;
-        }
-        countryList.set(index, country);
-        return country;
+    @Transactional
+    public void updateCountry(Country country) {
+        Country existingCountry = countryRepository.findById(country.getId())
+                .orElseThrow(() ->
+                        new RuntimeException("State not found with id: " + country.getId())
+                );
+        existingCountry.setName(country.getName());
+        countryRepository.save(existingCountry);
     }
 
-    public int deleteCountry(int id){
-        int index = 0;
-        System.out.println(id);
-        for (int i=0;i<countryList.size();i++){
-            if(countryList.get(i).getId() == id)
-                index = i;
-        }
-        countryList.remove(index);
-        return index;
+    @Transactional
+    public void deleteCountry(Long id) {
+        countryRepository.findById(id)
+                .ifPresentOrElse(
+                        countryRepository::delete,
+                        () -> {
+                            throw new RuntimeException("Country not found with id: " + id);
+                        }
+                );
     }
 }

@@ -1,23 +1,32 @@
 package com.example.monthlybudget.service;
+
+import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Currency;
+import com.example.monthlybudget.repository.CountryRepository;
+import com.example.monthlybudget.repository.CurrencyRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class CurrencyService {
-    private List<Currency> currencyList;
+    private final CurrencyRepository currencyRepository;
+    private final CountryRepository countryRepository;
 
-    public CurrencyService(){
-        currencyList = new ArrayList<>();
-        Currency currency1 = new Currency( 1, "Rs", 1);
-        Currency currency2 = new Currency( 2, "$", 2);
-        currencyList.addAll(Arrays.asList(currency1,currency2));
+    @Autowired
+    public CurrencyService(CurrencyRepository currencyRepository,
+                           CountryRepository countryRepository) {
+        this.currencyRepository = currencyRepository;
+        this.countryRepository = countryRepository;
     }
-    public Optional<Currency> getCurrency(Integer id){
-        Optional optional = Optional.empty();
-        for (Currency currency: currencyList){
-            if(id == currency.getId()){
+
+    public Optional getCurrency(Long id) {
+        Optional<Object> optional = Optional.empty();
+        for (Currency currency : currencyRepository.findAll()) {
+            if (Objects.equals(id, currency.getId())) {
                 optional = Optional.of(currency);
                 return optional;
             }
@@ -25,35 +34,39 @@ public class CurrencyService {
         return optional;
     }
 
-    public List<Currency> getCurrencies(){
-        return currencyList;
+    public List<Currency> getCurrencies() {
+        return currencyRepository.findAll();
     }
 
-    public Currency addCurrency(Currency currency){
+    @Transactional
+    public void addCurrency(Currency currency) {
         System.out.println(currency);
-        currencyList.add(currency);
-        return currency;
+        Country country = countryRepository.findById(currency.getCountry().getId())
+                .orElseThrow(() -> new RuntimeException("Country not found"));
+        currency.setName(currency.getName());
+        currency.setCountry(country);
+        Currency saved = currencyRepository.save(currency);
+        ResponseEntity.ok(saved);
     }
 
-    public Currency updateCurrency(Currency currency){
-        int index = 0;
-        System.out.println(currency);
-        for (int i=0;i<currencyList.size();i++){
-            if(currencyList.get(i).getId() == currency.getId())
-                index = i;
-        }
-        currencyList.set(index, currency);
-        return currency;
+    @Transactional
+    public void updateCurrency(Currency currency) {
+        Currency existingCurrency = currencyRepository.findById(currency.getId())
+                .orElseThrow(() ->
+                        new RuntimeException("Currency not found with id: " + currency.getId())
+                );
+        existingCurrency.setName(currency.getName());
+        currencyRepository.save(existingCurrency);
     }
 
-    public int deleteCurrency(int id){
-        int index = 0;
-        System.out.println(id);
-        for (int i=0;i<currencyList.size();i++){
-            if(currencyList.get(i).getId() == id)
-                index = i;
-        }
-        currencyList.remove(index);
-        return index;
+    @Transactional
+    public void deleteCurrency(Long id) {
+        currencyRepository.findById(id)
+                .ifPresentOrElse(
+                        currencyRepository::delete,
+                        () -> {
+                            throw new RuntimeException("Currency not found with id: " + id);
+                        }
+                );
     }
 }

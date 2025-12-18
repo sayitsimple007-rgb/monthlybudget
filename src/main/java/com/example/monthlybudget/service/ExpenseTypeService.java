@@ -1,34 +1,25 @@
 package com.example.monthlybudget.service;
+
 import com.example.monthlybudget.api.model.ExpenseType;
+import com.example.monthlybudget.repository.ExpenseTypeRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 @Service
 public class ExpenseTypeService {
-    private List<ExpenseType> expenseTypeList;
-
-    public ExpenseTypeService(){
-        expenseTypeList = new ArrayList<>();
-        ExpenseType expenseType1 = new ExpenseType( 1, "Wallmart Grocery");
-        ExpenseType expenseType2 = new ExpenseType( 2, "Suvidha Grocery");
-        ExpenseType expenseType3 = new ExpenseType( 3, "Rakesh Guitar Class");
-        ExpenseType expenseType4 = new ExpenseType( 4, "Purvi Swimming Class");
-        ExpenseType expenseType5 = new ExpenseType( 5, "Kavya Swimming Class");
-        ExpenseType expenseType6 = new ExpenseType( 6, "Purvi Karate Class");
-        ExpenseType expenseType7 = new ExpenseType( 7, "Kavya Karate Class");
-        ExpenseType expenseType8 = new ExpenseType( 8, "Purvi Math Class");
-        ExpenseType expenseType9 = new ExpenseType( 9, "Purvi Hindi Class");
-        ExpenseType expenseType10 = new ExpenseType( 10, "Kavya Hindi Class");
-        expenseTypeList.addAll(Arrays.asList(expenseType1,expenseType2, expenseType3, expenseType4,
-                expenseType5, expenseType6, expenseType7, expenseType8, expenseType9, expenseType10));
+    private final ExpenseTypeRepository expenseTypeRepository;
+    @Autowired
+    public ExpenseTypeService(ExpenseTypeRepository expenseTypeRepository) {
+        this.expenseTypeRepository = expenseTypeRepository;
     }
-    public Optional<ExpenseType> getExpenseType(Integer id){
-        Optional optional = Optional.empty();
-        for (ExpenseType expenseType: expenseTypeList){
-            if(id == expenseType.getId()){
+
+    public Optional getExpenseType(Long id) {
+        Optional<Object> optional = Optional.empty();
+        for (ExpenseType expenseType : expenseTypeRepository.findAll()) {
+            if (Objects.equals(id, expenseType.getId())) {
                 optional = Optional.of(expenseType);
                 return optional;
             }
@@ -36,35 +27,35 @@ public class ExpenseTypeService {
         return optional;
     }
 
-    public List<ExpenseType> getExpenseTypes(){
-        return expenseTypeList;
+    public List<ExpenseType> getExpenseTypes() {
+        return expenseTypeRepository.findAll();
     }
 
-    public ExpenseType addExpenseType(ExpenseType expenseType){
+    @Transactional
+    public void addExpenseType(ExpenseType expenseType) {
         System.out.println(expenseType);
-        expenseTypeList.add(expenseType);
-        return expenseType;
+        expenseTypeRepository.save(expenseType);
     }
 
-    public ExpenseType updateExpenseType(ExpenseType expenseType){
-        int index = 0;
-        System.out.println(expenseType);
-        for (int i=0;i<expenseTypeList.size();i++){
-            if(expenseTypeList.get(i).getId() == expenseType.getId())
-                index = i;
-        }
-        expenseTypeList.set(index, expenseType);
-        return expenseType;
+    @Transactional
+    public void updateExpenseType(ExpenseType expenseType) {
+        ExpenseType existingExpeneType = expenseTypeRepository.findById(expenseType.getId())
+                .orElseThrow(() ->
+                        new RuntimeException("Expense not found with id: " + expenseType.getId())
+                );
+
+        existingExpeneType.setName(expenseType.getName());
+        expenseTypeRepository.save(existingExpeneType);
     }
 
-    public int deleteExpenseType(int id){
-        int index = 0;
-        System.out.println(id);
-        for (int i=0;i<expenseTypeList.size();i++){
-            if(expenseTypeList.get(i).getId() == id)
-                index = i;
-        }
-        expenseTypeList.remove(index);
-        return index;
+    @Transactional
+    public void deleteExpenseType(Long id) {
+        expenseTypeRepository.findById(id)
+                .ifPresentOrElse(
+                        expenseTypeRepository::delete,
+                        () -> {
+                            throw new RuntimeException("Expense Type not found with id: " + id);
+                        }
+                );
     }
 }

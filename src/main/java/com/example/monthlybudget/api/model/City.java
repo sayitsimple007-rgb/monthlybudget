@@ -13,15 +13,6 @@ public class City {
     @Version
     private Long version;
     public City() {
-
-    }
-
-    public City(Long id, String name, Long countryId, Long stateId, Long version){
-        this.id = id;
-        this.name = name;
-        this.countryId = countryId;
-        this.stateId = stateId;
-        this.version = version;
     }
 
     public Long getId(){

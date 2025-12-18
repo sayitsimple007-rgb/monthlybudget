@@ -1,25 +1,29 @@
 package com.example.monthlybudget.service;
 
 import com.example.monthlybudget.api.model.City;
-import com.example.monthlybudget.api.model.State;
 import com.example.monthlybudget.repository.CityRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class CityService {
     private List<City> cityList;
     private final CityRepository cityRepository;
-
-    public CityService(CityRepository cityRepository){
+    @Autowired
+    public CityService(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
     }
 
-    public Optional<State> getCity(Long id, Long countryId, Long stateId){
-        Optional optional = Optional.empty();
-        for (City city:cityRepository.findAll()){
-            if(id == city.getId() && countryId == city.getCountryId() && stateId == city.getStateId()){
+    public Optional getCity(Long id, Long countryId, Long stateId) {
+        Optional<Object> optional = Optional.empty();
+        for (City city : cityRepository.findAll()) {
+            if (Objects.equals(id, city.getId()) && Objects.equals(countryId, city.getCountryId())
+                    && Objects.equals(stateId, city.getStateId())) {
                 optional = Optional.of(city);
                 return optional;
             }
@@ -27,34 +31,37 @@ public class CityService {
         return optional;
     }
 
-    public List<City> getCities(){
+    public List<City> getCities() {
         return cityRepository.findAll();
     }
 
-    public City addCity(City city){
+    public void addCity(City city) {
         System.out.println(city);
-        return cityRepository.save(city);
+        cityRepository.save(city);
     }
 
-    public City updateCity(City city){
-        int index = 0;
-        System.out.println(city);
-        for (int i=0;i<cityList.size();i++){
-            if(cityList.get(i).getId() == city.getId())
-                index = i;
-        }
-        cityList.set(index, city);
-        return city;
+    @Transactional
+    public void updateCity(City city) {
+
+        City existingCity = cityRepository.findById(city.getId())
+                .orElseThrow(() ->
+                        new RuntimeException("State not found with id: " + city.getId())
+                );
+
+        existingCity.setName(city.getName());
+        existingCity.setCountryId(city.getCountryId());
+        existingCity.setStateId(city.getStateId());
+        cityRepository.save(existingCity);
     }
 
-    public int deleteCity(int id){
-        System.out.println(id);
-        int index = 0;
-        for (int i=0; i < cityList.size(); i++){
-            if(cityList.get(i).getId() == id)
-                index = i;
-        }
-        cityList.remove(index);
-        return index;
+    @Transactional
+    public void deleteCity(Long id) {
+        cityRepository.findById(id)
+                .ifPresentOrElse(
+                        cityRepository::delete,
+                        () -> {
+                            throw new RuntimeException("City not found with id: " + id);
+                        }
+                );
     }
 }

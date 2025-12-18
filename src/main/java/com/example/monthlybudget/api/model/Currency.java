@@ -1,17 +1,24 @@
 package com.example.monthlybudget.api.model;
 
-public class Currency {
-    private int id;
-    private String name;
-    private int countryId;
+import jakarta.persistence.*;
 
-    public Currency(int id, String name, int countryId){
-        this.id = id;
-        this.name = name;
-        this.countryId = countryId;
+@Entity
+@Table(name = "Currency")
+public class Currency {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    @Version
+    private Long version;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
+
+    public Currency() {
     }
 
-    public int getId(){
+    public Long getId(){
         return id;
     }
 
@@ -19,7 +26,7 @@ public class Currency {
         return name;
     }
 
-    public void setId(int id){
+    public void setId(Long id){
         this.id = id;
     }
 
@@ -27,11 +34,19 @@ public class Currency {
         this.name = name;
     }
 
-    public int getCountryId(){
-        return countryId;
+    public Country getCountry(){
+        return country;
     }
 
-    public void setCountryId(int countryId){
-        this.countryId = countryId;
+    public void setCountry(Country country){
+        this.country = country;
+    }
+
+    public Long getVersion(){
+        return version;
+    }
+
+    public void setVersion(Long version){
+        this.version = version;
     }
 }

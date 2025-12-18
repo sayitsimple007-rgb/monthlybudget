@@ -1,18 +1,26 @@
 package com.example.monthlybudget.api.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "expense_type")
 public class ExpenseType {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    public ExpenseType(int id, String name){
-        this.id = id;
-        this.name = name;
+    @Version
+    private Long version;
+
+    public ExpenseType() {
+
     }
 
-    public int getId(){
+    public Long getId(){
         return id;
     }
 
-    public void setId(int id){
+    public void setId(Long id){
         this.id = id;
     }
 
@@ -22,5 +30,13 @@ public class ExpenseType {
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public Long getVersion(){
+        return version;
+    }
+
+    public void setVersion(Long version){
+        this.version = version;
     }
 }

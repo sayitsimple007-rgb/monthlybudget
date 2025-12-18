@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @RestController
 public class StateController {
-    private StateService stateService;
+    private final StateService stateService;
 
     @Autowired
     public StateController(StateService stateService){
@@ -16,7 +16,7 @@ public class StateController {
     }
 
     @GetMapping("/state")
-    public State getState(@RequestParam Integer id, @RequestParam Integer countryId){
+    public State getState(@RequestParam Long id, @RequestParam Long countryId){
         Optional state = stateService.getState(id, countryId);
         if(state.isPresent()){
             return (State) state.get();
@@ -30,23 +30,20 @@ public class StateController {
     }
 
     @PostMapping("/state")
-    public State addState(@RequestBody State state){
+    public void addState(@RequestBody State state){
         System.out.println(state);
         stateService.addState(state);
-        return state;
     }
 
     @PutMapping("/state")
-    public State updateState(@RequestBody State state){
+    public void updateState(@RequestBody State state){
         System.out.println(state);
         stateService.updateState(state);
-        return state;
     }
 
     @DeleteMapping("/states/{id}")
-    public int deleteState(@PathVariable int id){
+    public void deleteState(@PathVariable Long id){
         System.out.println(id);
         stateService.deleteState(id);
-        return id;
     }
 }

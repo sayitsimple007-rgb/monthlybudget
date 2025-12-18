@@ -1,23 +1,25 @@
 package com.example.monthlybudget.service;
 import com.example.monthlybudget.api.model.State;
 import com.example.monthlybudget.repository.StateRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class StateService {
-    private List<State> stateList;
     private final StateRepository stateRepository;
-
+    @Autowired
     public StateService(StateRepository stateRepository){
         this.stateRepository = stateRepository;
     }
 
-    public Optional<State> getState(Integer id, Integer countryId){
-        Optional optional = Optional.empty();
+    public Optional getState(Long id, Long countryId){
+        Optional<Object> optional = Optional.empty();
         for (State state:stateRepository.findAll()){
-            if(id == state.getId() && countryId == state.getCountryId()){
+            if(Objects.equals(id, state.getId()) && Objects.equals(countryId, state.getCountryId())){
                 optional = Optional.of(state);
                 return optional;
             }
@@ -29,30 +31,33 @@ public class StateService {
         return stateRepository.findAll();
     }
 
-    public State addState(State state){
+    @Transactional
+    public void addState(State state){
         System.out.println(state);
-        return stateRepository.save(state);
+        stateRepository.save(state);
     }
 
-    public State updateState(State state){
-        int index = 0;
-        System.out.println(state);
-        for (int i=0;i<stateList.size();i++){
-            if(stateList.get(i).getId() == state.getId())
-                index = i;
-        }
-        stateList.set(index, state);
-        return state;
+    @Transactional
+    public void updateState(State state) {
+
+        State existingState = stateRepository.findById(state.getId())
+                .orElseThrow(() ->
+                        new RuntimeException("State not found with id: " + state.getId())
+                );
+
+        existingState.setName(state.getName());
+        existingState.setCountryId(state.getCountryId());
+        stateRepository.save(existingState);
     }
 
-    public int deleteState(int id){
-        int index = 0;
-        System.out.println(id);
-        for (int i=0;i<stateList.size();i++){
-            if(stateList.get(i).getId() == id)
-                index = i;
-        }
-        stateList.remove(index);
-        return index;
+    @Transactional
+    public void deleteState(Long id) {
+        stateRepository.findById(id)
+                .ifPresentOrElse(
+                        stateRepository::delete,
+                        () -> {
+                            throw new RuntimeException("State not found with id: " + id);
+                        }
+                );
     }
 }

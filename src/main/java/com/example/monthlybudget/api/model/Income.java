@@ -1,36 +1,42 @@
 package com.example.monthlybudget.api.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Income")
 public class Income {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private int amount;
-    public Income(int id, String name, int amount){
-        this.id = id;
-        this.name = name;
-        this.amount = amount;
+
+    @Version
+    private Long version;
+
+    public Income() {
     }
 
-    public int getId(){
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public int getAmount(){
-        return amount;
+    public Long getVersion() {
+        return version;
     }
 
-    public void setAmount(int amount){
-        this.amount = amount;
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

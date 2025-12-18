@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @RestController
 public class ExpenseTypeController {
-    private ExpenseTypeService expenseTypeService;
+    private final ExpenseTypeService expenseTypeService;
 
     @Autowired
     public ExpenseTypeController(ExpenseTypeService expenseTypeService){
@@ -16,7 +16,7 @@ public class ExpenseTypeController {
     }
 
     @GetMapping("/expenseType")
-    public ExpenseType getExpenseType(@RequestParam Integer id){
+    public ExpenseType getExpenseType(@RequestParam Long id){
         Optional expenseType = expenseTypeService.getExpenseType(id);
         if(expenseType.isPresent()){
             return (ExpenseType) expenseType.get();
@@ -30,23 +30,20 @@ public class ExpenseTypeController {
     }
 
     @PostMapping("/expenseType")
-    public ExpenseType addExpenseType(@RequestBody ExpenseType expenseType){
+    public void addExpenseType(@RequestBody ExpenseType expenseType){
         System.out.println(expenseType);
         expenseTypeService.addExpenseType(expenseType);
-        return expenseType;
     }
 
     @PutMapping("/expenseType")
-    public ExpenseType updateExpenseType(@RequestBody ExpenseType expenseType){
+    public void updateExpenseType(@RequestBody ExpenseType expenseType){
         System.out.println(expenseType);
         expenseTypeService.updateExpenseType(expenseType);
-        return expenseType;
     }
 
     @DeleteMapping("/expenseTypes/{id}")
-    public int deleteExpenseType(@PathVariable int id){
+    public void deleteExpenseType(@PathVariable Long id){
         System.out.println(id);
         expenseTypeService.deleteExpenseType(id);
-        return id;
     }
 }

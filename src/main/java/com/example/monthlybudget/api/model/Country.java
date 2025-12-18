@@ -7,22 +7,19 @@ import jakarta.persistence.*;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
+    @Version
+    private Long version;
 
     public Country(){
-
-    }
-    public Country(int id, String name){
-        this.id = id;
-        this.name = name;
     }
 
-    public int getId(){
+    public Long getId(){
         return id;
     }
 
-    public void setId(int id){
+    public void setId(Long id){
         this.id = id;
     }
 
@@ -32,5 +29,13 @@ public class Country {
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public Long getVersion(){
+        return version;
+    }
+
+    public void setVersion(Long version){
+        this.version = version;
     }
 }

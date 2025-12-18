@@ -1,29 +1,35 @@
 package com.example.monthlybudget.api.model;
+import jakarta.persistence.*;
 
-import java.util.Optional;
-
+@Entity
+@Table(name = "Expense")
 public class Expense {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private int amountDue;
-    private int amountPaid;
-    private Optional<Country> country;
-    private Optional<State> state;
-    private Optional<ExpenseType> expenseType;
-    public Expense(int id, String name, int amountDue, Optional<Country> country, Optional<State> state, Optional<ExpenseType> expenseType){
-        this.id = id;
-        this.name = name;
-        this.amountDue = amountDue;
-        this.country = country;
-        this.state = state;
-        this.expenseType = expenseType;
+    private Long amountDue;
+    private Long amountPaid;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    private State state;
+    @ManyToOne
+    @JoinColumn(name = "expense_type_id")
+    private ExpenseType expenseType;
+    @Version
+    private Long version;
+
+    public Expense() {
     }
 
-    public int getId(){
+    public Long getId(){
         return id;
     }
 
-    public void setId(int id){
+    public void setId(Long id){
         this.id = id;
     }
 
@@ -35,43 +41,51 @@ public class Expense {
         this.name = name;
     }
 
-    public int getAmountDue(){
+    public Long getAmountDue(){
         return amountDue;
     }
 
-    public void setAmountDue(int amountDue){
+    public void setAmountDue(Long amountDue){
         this.amountDue = amountDue;
     }
 
-    public int getAmountPaid(){
+    public Long getAmountPaid(){
         return amountPaid;
     }
 
-    public void setAmountPaid(int amountPaid){
+    public void setAmountPaid(Long amountPaid){
         this.amountPaid = amountPaid;
     }
 
-    public Optional<Country> getCountry(){
+    public Country getCountry(){
         return country;
     }
 
-    public void setCountry(Optional<Country> country){
+    public void setCountry(Country country){
         this.country = country;
     }
 
-    public Optional<State> getState(){
+    public State getState(){
         return state;
     }
 
-    public void setState(Optional<State> state){
+    public void setState(State state){
         this.state = state;
     }
 
-    public Optional<ExpenseType> getExpenseType(){
+    public ExpenseType getExpenseType(){
         return expenseType;
     }
 
-    public void setExpenseType(Optional<ExpenseType> expenseType){
+    public void setExpenseType(ExpenseType expenseType){
         this.expenseType = expenseType;
+    }
+
+    public Long getVersion(){
+        return version;
+    }
+
+    public void setVersion(Long version){
+        this.version = version;
     }
 }

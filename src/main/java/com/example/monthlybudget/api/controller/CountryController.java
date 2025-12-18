@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @RestController
 public class CountryController {
-    private CountryService countryService;
+    private final CountryService countryService;
 
     @Autowired
     public CountryController(CountryService countryService){
@@ -16,7 +16,7 @@ public class CountryController {
     }
 
     @GetMapping("/country")
-    public Country getCountry(@RequestParam Integer id){
+    public Country getCountry(@RequestParam Long id){
         Optional country = countryService.getCountry(id);
         if(country.isPresent()){
             return (Country) country.get();
@@ -30,23 +30,20 @@ public class CountryController {
     }
 
     @PostMapping("/country")
-    public Country addCountry(@RequestBody Country country){
+    public void addCountry(@RequestBody Country country){
         System.out.println(country);
         countryService.addCountry(country);
-        return country;
     }
 
     @PutMapping("/country")
-    public Country updateCountry(@RequestBody Country country){
+    public void updateCountry(@RequestBody Country country){
         System.out.println(country);
         countryService.updateCountry(country);
-        return country;
     }
 
     @DeleteMapping("/countries/{id}")
-    public int deleteCountry(@PathVariable int id){
+    public void deleteCountry(@PathVariable Long id){
         System.out.println(id);
         countryService.deleteCountry(id);
-        return id;
     }
 }
