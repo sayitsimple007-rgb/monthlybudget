@@ -36,8 +36,8 @@ public class IncomeService {
     }
 
     @Transactional
-    public void updateIncome(Income income) {
-        Income existingIncome = incomeRepository.findById(income.getId())
+    public void updateIncome(Long id, Income income) {
+        Income existingIncome = incomeRepository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("Expense not found with id: " + income.getId())
                 );

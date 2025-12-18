@@ -17,7 +17,7 @@ public class IncomeController {
         this.incomeService = incomeService;
     }
 
-    @GetMapping("/income")
+    @GetMapping("/incomes/{id}")
     public Income getIncome(@RequestParam Long id) {
         Optional income = incomeService.getIncome(id);
         if (income.isPresent()) {
@@ -31,16 +31,16 @@ public class IncomeController {
         return incomeService.getIncomes();
     }
 
-    @PostMapping("/income")
+    @PostMapping("/incomes")
     public void addIncome(@RequestBody Income income) {
         System.out.println(income);
         incomeService.addIncome(income);
     }
 
-    @PutMapping("/income")
-    public void updateIncome(@RequestBody Income income) {
+    @PutMapping("/incomes/{id}")
+    public void updateIncome(@PathVariable Long id, @RequestBody Income income) {
         System.out.println(income);
-        incomeService.updateIncome(income);
+        incomeService.updateIncome(id, income);
     }
 
     @DeleteMapping("/incomes/{id}")
