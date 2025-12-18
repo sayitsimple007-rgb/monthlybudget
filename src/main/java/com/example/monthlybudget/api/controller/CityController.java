@@ -18,8 +18,8 @@ public class CityController {
     }
 
     @GetMapping("/city")
-    public City getCity(@RequestParam Integer id, @RequestParam Integer countryId
-            , @RequestParam Integer stateId) {
+    public City getCity(@RequestParam Long id, @RequestParam Long countryId
+            , @RequestParam Long stateId) {
         Optional city = cityService.getCity(id, countryId, stateId);
         if (city.isPresent()) {
             return (City) city.get();

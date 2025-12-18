@@ -21,7 +21,7 @@ public class CityService {
         this.cityRepository = cityRepository;
     }
 
-    public Optional<State> getCity(Integer id, Integer countryId, Integer stateId){
+    public Optional<State> getCity(Long id, Long countryId, Long stateId){
         Optional optional = Optional.empty();
         for (City city:cityRepository.findAll()){
             if(id == city.getId() && countryId == city.getCountryId() && stateId == city.getStateId()){
