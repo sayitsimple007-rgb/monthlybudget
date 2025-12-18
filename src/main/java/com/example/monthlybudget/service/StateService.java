@@ -17,18 +17,12 @@ public class StateService {
     private final StateRepository stateRepository;
 
     public StateService(StateRepository stateRepository){
-        stateList = new ArrayList<>();
-        State state1 = new State(1, "North Carolina", 2);
-        State state2 = new State(2, "Maharashtra", 1);
-        stateList.addAll(Arrays.asList(state1,state2));
         this.stateRepository = stateRepository;
     }
 
     public Optional<State> getState(Integer id, Integer countryId){
-        //return stateList.stream().filter(state -> id == state.getId() && countryId == state.getCountryId())
-                //.findFirst().get();
         Optional optional = Optional.empty();
-        for (State state:stateList){
+        for (State state:stateRepository.findAll()){
             if(id == state.getId() && countryId == state.getCountryId()){
                 optional = Optional.of(state);
                 return optional;
