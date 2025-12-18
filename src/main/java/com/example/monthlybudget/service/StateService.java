@@ -3,6 +3,7 @@ package com.example.monthlybudget.service;
 import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Income;
 import com.example.monthlybudget.api.model.State;
+import com.example.monthlybudget.repository.StateRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,12 +14,14 @@ import java.util.Optional;
 @Service
 public class StateService {
     private List<State> stateList;
+    private final StateRepository stateRepository;
 
-    public StateService(){
+    public StateService(StateRepository stateRepository){
         stateList = new ArrayList<>();
         State state1 = new State(1, "North Carolina", 2);
         State state2 = new State(2, "Maharashtra", 1);
         stateList.addAll(Arrays.asList(state1,state2));
+        this.stateRepository = stateRepository;
     }
 
     public Optional<State> getState(Integer id, Integer countryId){
@@ -35,7 +38,8 @@ public class StateService {
     }
 
     public List<State> getStates(){
-        return stateList;
+
+        return stateRepository.findAll();
     }
 
     public State addState(State state){

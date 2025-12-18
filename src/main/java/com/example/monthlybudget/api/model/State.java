@@ -1,10 +1,19 @@
 package com.example.monthlybudget.api.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "State")
 public class State {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private int countryId;
 
+    public State(){
+
+    }
     public State(int id, String name, int countryId){
         this.id = id;
         this.name = name;

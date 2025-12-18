@@ -3,6 +3,7 @@ package com.example.monthlybudget.service;
 import com.example.monthlybudget.api.model.City;
 import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Currency;
+import com.example.monthlybudget.repository.CountryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -15,16 +16,14 @@ import java.util.Optional;
 public class CountryService {
 
     private List<Country> countryList;
+    private final CountryRepository countryRepository;
 
-    public CountryService(){
-        countryList = new ArrayList<>();
-        Country country1 = new Country( 1, "India");
-        Country country2 = new Country( 2, "USA");
-        countryList.addAll(Arrays.asList(country1,country2));
+    public CountryService(CountryRepository countryRepository){
+        this.countryRepository = countryRepository;
     }
     public Optional<Country> getCountry(Integer id){
         Optional optional = Optional.empty();
-        for (Country country: countryList){
+        for (Country country: countryRepository.findAll()){
             if(id == country.getId()){
                 optional = Optional.of(country);
                 return optional;
@@ -34,7 +33,7 @@ public class CountryService {
     }
 
     public List<Country> getCountries(){
-        return countryList;
+        return countryRepository.findAll();
     }
 
     public Country addCountry(Country country){

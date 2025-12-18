@@ -19,15 +19,11 @@ public class CityService {
 
     public CityService(CityRepository cityRepository){
         this.cityRepository = cityRepository;
-        cityList = new ArrayList<>();
-        City city1 = new City(1, "Cary", 1, 1);
-        City city2 = new City(2, "Pune", 2, 2);
-        cityList.addAll(Arrays.asList(city1,city2));
     }
 
     public Optional<State> getCity(Integer id, Integer countryId, Integer stateId){
         Optional optional = Optional.empty();
-        for (City city:cityList){
+        for (City city:cityRepository.findAll()){
             if(id == city.getId() && countryId == city.getCountryId() && stateId == city.getStateId()){
                 optional = Optional.of(city);
                 return optional;
