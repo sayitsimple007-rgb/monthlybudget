@@ -8,8 +8,15 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Long countryId;
-    private Long stateId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "country_id", nullable = false)
+    private Country country;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "state_id", nullable = false)
+    private State state;
+
     @Version
     private Long version;
     public City() {
@@ -31,20 +38,20 @@ public class City {
         this.name = name;
     }
 
-    public Long getCountryId(){
-        return countryId;
+    public Country getCountry(){
+        return country;
     }
 
-    public void setCountryId(Long countryId){
-        this.countryId = countryId;
+    public void setCountry(Country country){
+        this.country = country;
     }
 
-    public Long getStateId(){
-        return stateId;
+    public State getState(){
+        return state;
     }
 
-    public void setStateId(Long stateId){
-        this.stateId = stateId;
+    public void setState(State state){
+        this.state = state;
     }
 
     public Long getVersion(){

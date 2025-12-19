@@ -1,5 +1,7 @@
 package com.example.monthlybudget.api.controller;
 import com.example.monthlybudget.api.model.City;
+import com.example.monthlybudget.dto.CityRequest;
+import com.example.monthlybudget.dto.CityResponse;
 import com.example.monthlybudget.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,20 +28,20 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public List<City> getCities(){
+    public List<CityResponse> getCities(){
         return cityService.getCities();
     }
 
     @PostMapping("/cities")
-    public void addCity(@RequestBody City city){
-        System.out.println(city);
-        cityService.addCity(city);
+    public void addCity(@RequestBody CityRequest cityRequest){
+        System.out.println(cityRequest);
+        cityService.addCity(cityRequest);
     }
 
     @PutMapping("/cities/{id}")
-    public void updateCity(@PathVariable Long id, @RequestBody City city){
-        System.out.println(city);
-        cityService.updateCity(id, city);
+    public void updateCity(@PathVariable Long id, @RequestBody CityRequest cityRequest){
+        System.out.println(cityRequest);
+        cityService.updateCity(id, cityRequest);
     }
 
     @DeleteMapping("/cities/{id}")
