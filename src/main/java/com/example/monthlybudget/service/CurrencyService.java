@@ -3,6 +3,7 @@ package com.example.monthlybudget.service;
 import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Currency;
 import com.example.monthlybudget.dto.CurrencyRequest;
+import com.example.monthlybudget.dto.CurrencyResponse;
 import com.example.monthlybudget.repository.CountryRepository;
 import com.example.monthlybudget.repository.CurrencyRepository;
 import jakarta.transaction.Transactional;
@@ -34,8 +35,31 @@ public class CurrencyService {
         return optional;
     }
 
-    public List<Currency> getCurrencies() {
-        return currencyRepository.findAll();
+    public List<CurrencyResponse> getAllCurrencies() {
+        System.out.println("=== COUNTRIES ===");
+        currencyRepository.findAll()
+                .stream()
+                .map(c -> new CurrencyResponse(
+                        c.getId(),
+                        c.getName(),
+                        c.getCountry().getId(),
+                        c.getCountry().getName()
+                ))
+                .toList().forEach(c ->
+                System.out.println(
+                        "Country{id=" + c.getCountryName() +
+                                ", name=" + c.getCountryId() + "}"
+                )
+        );
+        return currencyRepository.findAll()
+                .stream()
+                .map(c -> new CurrencyResponse(
+                        c.getId(),
+                        c.getName(),
+                        c.getCountry().getId(),
+                        c.getCountry().getName()
+                ))
+                .toList();
     }
 
     @Transactional

@@ -3,7 +3,7 @@ package com.example.monthlybudget.api.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Currency")
+@Table(name = "currency")
 public class Currency {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,8 +11,8 @@ public class Currency {
     private String name;
     @Version
     private Long version;
-    @ManyToOne
-    @JoinColumn(name = "country_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
     public Currency() {

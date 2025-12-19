@@ -2,6 +2,7 @@ package com.example.monthlybudget.api.controller;
 
 import com.example.monthlybudget.api.model.Currency;
 import com.example.monthlybudget.dto.CurrencyRequest;
+import com.example.monthlybudget.dto.CurrencyResponse;
 import com.example.monthlybudget.service.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,8 @@ public class CurrencyController {
     }
 
     @GetMapping("/currencies")
-    public List<Currency> getCurrencies() {
-        return currencyService.getCurrencies();
+    public List<CurrencyResponse> getCurrencies() {
+        return currencyService.getAllCurrencies();
     }
 
     @PostMapping("/currencies")
