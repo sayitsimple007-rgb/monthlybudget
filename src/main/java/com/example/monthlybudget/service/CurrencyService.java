@@ -2,13 +2,13 @@ package com.example.monthlybudget.service;
 
 import com.example.monthlybudget.api.model.Country;
 import com.example.monthlybudget.api.model.Currency;
+import com.example.monthlybudget.dto.CurrencyRequest;
 import com.example.monthlybudget.repository.CountryRepository;
 import com.example.monthlybudget.repository.CurrencyRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
@@ -39,12 +39,13 @@ public class CurrencyService {
     }
 
     @Transactional
-    public void addCurrency(Currency currency) {
-        System.out.println(currency);
-        Country country = countryRepository.findById(currency.getCountry().getId())
+    public void addCurrency(CurrencyRequest currencyRequest) {
+        System.out.println(currencyRequest);
+        Country country = countryRepository.findById(currencyRequest.getCountryId())
                 .orElseThrow(() -> new RuntimeException("Country not found"));
-        currency.setName(currency.getName());
+        Currency currency = new Currency();
         currency.setCountry(country);
+        currency.setName(currencyRequest.getName());
         Currency saved = currencyRepository.save(currency);
         ResponseEntity.ok(saved);
     }
@@ -56,6 +57,7 @@ public class CurrencyService {
                         new RuntimeException("Currency not found with id: " + id)
                 );
         existingCurrency.setName(currency.getName());
+        existingCurrency.setCountry(currency.getCountry());
         currencyRepository.save(existingCurrency);
     }
 
